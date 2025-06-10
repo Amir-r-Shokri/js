@@ -3,418 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آموزش جامع پایه داوطلبی - نهضت بین المللی صلیب سرخ و هلال احمر</title>
+    <title>جزوه آموزشی مهارت‌های پایه داوطلبی</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-red: #ef4444;
-            --primary-red-dark: #dc2626;
-            --primary-red-light: #fee2e2;
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-        }
-        html { scroll-behavior: smooth; }
+        /* Base body style with animated gradient */
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            scroll-behavior: smooth;
+            background: linear-gradient(-45deg, #ffffff, #fef2f2, #f8f9fa, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient-animation 20s ease infinite;
         }
 
-        .highlight { color: var(--primary-red-dark); font-weight: 600; }
-        
-        .floating-logos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; pointer-events: none; }
-        .floating-logos svg { position: absolute; opacity: 0.03; animation: float 25s infinite linear; color: var(--primary-red); }
-        .floating-logos svg:nth-child(1) { width: 80px; left: 15%; animation-duration: 20s; }
-        .floating-logos svg:nth-child(2) { width: 100px; left: 70%; animation-duration: 30s; animation-delay: -5s; }
-        .floating-logos svg:nth-child(3) { width: 50px; left: 85%; animation-duration: 40s; animation-delay: -15s; }
-        .floating-logos svg:nth-child(4) { width: 120px; left: 30%; animation-duration: 35s; animation-delay: -10s; }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-            25%, 75% { opacity: 0.03; }
-            100% { transform: translateY(-100px) rotate(360deg) scale(1.2); opacity: 0; }
+        /* Keyframes for the background animation */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in-section { animation: fadeIn 0.6s ease-out forwards; }
         
-        .nav-btn.active { background-color: var(--primary-red); color: white; border-color: var(--primary-red); box-shadow: 0 4px 14px 0 rgb(239 68 68 / 39%); }
-        .search-highlight { background-color: #fef9c3; color: #713f12; border-radius: 3px; padding: 1px 2px; }
+        /* Keyframes for the floating animation of the main content */
+        @keyframes float-animation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Apply the floating animation to the main container */
+        .floating-container {
+            animation: float-animation 5s ease-in-out infinite;
+        }
+
+        /* Style for the accordion content for smooth transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1.5rem;
+        }
         
-        .prose { line-height: 1.8; }
-        .prose strong { color: #334155; }
-        .prose ul > li::before { background-color: var(--primary-red); }
+        /* Style for when the accordion is active/open */
+        .accordion-item.active .accordion-content {
+            max-height: 2000px; /* Adjust as needed */
+            transition: max-height 0.7s ease-in, padding 0.5s ease-in;
+            padding: 1.5rem;
+        }
         
-        .tts-btn.playing .play-icon, .tts-btn:not(.playing) .stop-icon { display: none; }
-        #back-to-top { transition: opacity 0.3s, visibility 0.3s, transform 0.3s; }
+        /* Style for the rotating icon on accordion header */
+        .accordion-item .icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-item.active .icon {
+            transform: rotate(180deg);
+        }
+
+        /* Custom style for highlighted text */
+        .highlight {
+            text-decoration: underline;
+            text-decoration-color: #ef4444; /* red-500 */
+            text-decoration-style: wavy;
+            text-decoration-thickness: 1.5px;
+            background-color: #fee2e2; /* red-100 */
+            border-radius: 3px;
+        }
         
-        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #15803d; }
-        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c; }
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b91c1c; }
     </style>
 </head>
-<body class="antialiased">
+<body class="text-gray-800">
 
-    <!-- Floating Background -->
-    <div class="floating-logos">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM12 4C7.58 4 4 7.58 4 12C4 16.42 7.58 20 12 20C13.57 20 15.05 19.56 16.32 18.77C12.48 17.84 9.5 14.67 9.5 10.5C9.5 9.04 9.94 7.67 10.72 6.49C9.28 4.88 7.08 4 4.5 4C4.33 4 4.17 4 4 4.01C4.01 4 4.33 4 4.5 4C7.08 4 9.28 4.88 10.72 6.49C9.94 7.67 9.5 9.04 9.5 10.5C9.5 14.67 12.48 17.84 16.32 18.77C15.05 19.56 13.57 20 12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 12H14V8C14 7.45 13.55 7 13 7H11C10.45 7 10 7.45 10 8V12H6C5.45 12 5 12.45 5 13V15C5 15.55 5.45 16 6 16H10V20C10 20.55 10.45 21 11 21H13C13.55 21 14 20.55 14 20V16H18C18.55 16 19 15.55 19 15V13C19 12.45 18.55 12 18 12Z"/></svg>
-    </div>
-
-    <!-- Header / Navbar -->
-    <header id="main-header" class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50 transition-shadow duration-300">
-        <div class="container mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <h1 class="text-2xl font-bold text-red-600">آموزش جامع پایه داوطلبی جهت مهاجران المانی</h1>
-            <nav class="flex flex-wrap justify-center items-center gap-2 md:gap-4">
-                <button id="summary-btn" class="nav-btn flex items-center gap-2 px-4 py-2 border border-red-500 text-red-600 rounded-full focus:outline-none transition-all duration-300">خلاصه فصول</button>
-                <button id="fulltext-btn" class="nav-btn flex items-center gap-2 px-4 py-2 border border-red-500 text-red-600 rounded-full focus:outline-none transition-all duration-300">درسنامه کامل</button>
-                <button id="quiz-btn" class="nav-btn flex items-center gap-2 px-4 py-2 border border-red-500 text-red-600 rounded-full focus:outline-none transition-all duration-300">نمونه سوالات</button>
-                <div class="relative flex items-center shadow-sm rounded-full bg-white">
-                    <input type="text" id="searchInput" placeholder="جستجو..." class="search-bar px-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 transition-all w-36 md:w-56 pr-10">
-                    <span class="absolute right-3 top-0 bottom-0 text-gray-400 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                    </span>
+    <!-- Header Section -->
+    <header class="bg-red-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-center mb-4">جزوه آموزشی مهارت‌های پایه داوطلبی</h1>
+            <div class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="text" id="searchInput" placeholder="جستجو در مطالب..." class="w-full bg-red-50 text-gray-800 rounded-full py-3 pr-4 pl-10 focus:outline-none focus:ring-2 focus:ring-white transition">
                 </div>
-            </nav>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-6 mt-6">
-        <div id="content-container" class="space-y-8"></div>
-        <div id="quiz-container" class="hidden"></div>
-        <div id="no-results" class="hidden text-center text-gray-500 mt-10 p-10 bg-white rounded-2xl shadow-lg">
-            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            <h3 class="mt-2 text-lg font-medium text-gray-900">نتیجه‌ای یافت نشد</h3>
-            <p class="mt-1 text-sm text-gray-500">عبارت جستجوی خود را تغییر دهید و دوباره تلاش کنید.</p>
+    <!-- Main Content: Accordion Cards -->
+    <main class="container mx-auto p-4 md:p-8 floating-container">
+        <div id="accordion-container" class="space-y-4">
+            <!-- Accordion items will be dynamically injected here by JavaScript -->
+        </div>
+        <div id="no-results" class="text-center text-gray-500 text-xl mt-8 hidden">
+            <p>موردی یافت نشد.</p>
         </div>
     </main>
-
-    <button id="back-to-top" class="fixed bottom-5 right-5 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 hover:scale-110 transition-all duration-300 opacity-0 invisible z-50">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414l-3-3z" clip-rule="evenodd" /></svg>
-    </button>
     
-    <footer class="text-center py-8 mt-12 border-t border-gray-200">
-        <p class="text-gray-500">طراحی و توسعه توسط: امیررضا شکری</p>
+    <!-- Footer Section -->
+    <footer class="bg-red-700 text-white text-center p-4 mt-8">
+        <p>تمامی حقوق برای a.r.shk محفوظ است</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const mainHeader = document.getElementById('main-header');
-            const contentContainer = document.getElementById('content-container');
-            const quizContainer = document.getElementById('quiz-container');
-            const summaryBtn = document.getElementById('summary-btn');
-            const fulltextBtn = document.getElementById('fulltext-btn');
-            const quizBtn = document.getElementById('quiz-btn');
-            const searchInput = document.getElementById('searchInput');
-            const noResultsMessage = document.getElementById('no-results');
-            const backToTopBtn = document.getElementById('back-to-top');
-            let currentView = 'summary';
-            let voices = [];
-
-            function populateVoiceList() {
-                if (typeof speechSynthesis === 'undefined') return;
-                voices = window.speechSynthesis.getVoices();
+        // --- DATA ---
+        // The handout content is stored in this array of objects.
+        const handoutData = [
+            {
+                title: "نهضت بین‌المللی صلیب سرخ و هلال احمر",
+                content: `
+                    <h3 class="text-xl font-bold text-red-700 mb-2">بنیان‌گذار صلیب سرخ</h3>
+                    <p class="mb-4">هانری دونان، یک بازرگان جوان سوئیسی، بنیان‌گذار نهضت بین‌المللی صلیب سرخ است. او پس از مشاهده جنگ در سولفورینو ایتالیا در سال ۱۸۵۹ و رنج مجروحان، کتاب "خاطرات سولفورینو" را نوشت و دو پیشنهاد اساسی را مطرح کرد:</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>تاسیس یک جمعیت امدادی داوطلب در هر کشور با آموزش در زمان صلح جهت خدمت در زمان جنگ.</li>
+                        <li>ایجاد یک اصل بین‌المللی جهت حمایت از بیمارستان‌ها و کارکنان مراکز درمانی.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">اعضای تشکیل دهنده نهضت</h3>
+                    <p class="mb-4">این نهضت از سه عضو اصلی تشکیل شده است:</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><b>کمیته بین‌المللی صلیب سرخ (ICRC):</b> این کمیته در سال ۱۸۶۳ تاسیس شد و وظایفی چون حفظ و نشر اصول هفتگانه نهضت و حمایت از آسیب‌دیدگان را بر عهده دارد.</li>
+                        <li><b>فدراسیون بین‌المللی جمعیت‌های صلیب سرخ و هلال احمر (IFRC):</b> شامل کلیه جمعیت‌های ملی است و هدف آن ارتقاء فعالیت‌های بشردوستانه است.</li>
+                        <li><b>جمعیت‌های ملی هلال احمر یا صلیب سرخ:</b> این جمعیت‌ها در کشورهای خود تشکیل شده و پس از به رسمیت شناخته شدن، به عضویت فدراسیون در می‌آیند.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">اصول هفت‌گانه صلیب سرخ و هلال احمر</h3>
+                     <ul class="list-disc list-inside space-y-2">
+                        <li><b>انسانیت (Humanity):</b> تلاش برای کاهش آلام و رنج بشری.</li>
+                        <li><b>بی‌غرضی (Impartiality):</b> عدم وجود هرگونه جبهه‌گیری.</li>
+                        <li><b>بی‌طرفی (Neutrality):</b> عدم جانبداری در درگیری‌ها.</li>
+                        <li><b>عدم وابستگی (Independence):</b> حفظ استقلال عملکرد.</li>
+                        <li><b>خدمات داوطلبانه (Voluntary Service):</b> عضویت داوطلبانه و بدون انگیزه سودآوری.</li>
+                        <li><b>یگانگی (Unity):</b> وجود تنها یک جمعیت در هر کشور.</li>
+                        <li><b>جهان‌شمولی (Universality):</b> برابری موقعیت و وظایف همه جمعیت‌ها.</li>
+                    </ul>
+                `
+            },
+            {
+                title: "کار گروهی",
+                content: `
+                    <h3 class="text-xl font-bold text-red-700 mb-2">تعریف گروه</h3>
+                    <p class="mb-4">دو یا چند نفر که با هم روابط متقابل دارند، به یکدیگر وابسته اند و برای تأمین هدف‌های خاص گردهم می‌آیند.</p>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">انواع گروه</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><b>گروه‌های اولیه و ثانویه:</b> مانند خانواده (اولیه) و کلاس درس (ثانویه).</li>
+                        <li><b>گروه‌های کوچک و بزرگ:</b> بر اساس تعداد اعضا (کمتر یا بیشتر از ۱۲ نفر).</li>
+                        <li><b>گروه‌های رسمی و غیر رسمی:</b> بر اساس داشتن یا نداشتن ساختار مشخص.</li>
+                        <li><b>گروه‌های باز و بسته:</b> بر اساس سهولت یا محدودیت در عضویت.</li>
+                        <li><b>و سایر گروه‌ها:</b> مانند گروه مرجع، داوطلب، اجباری و ...</li>
+                    </ul>
+                     <h3 class="text-xl font-bold text-red-700 mb-2">نقش افراد در گروه</h3>
+                    <p class="mb-4">افراد در گروه به سه دسته کلی تقسیم می‌شوند: مثبت، مشکل‌آفرین و بله قربان‌گو.</p>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><b>نقش‌های مثبت:</b> شامل مبتکر، تشویق‌کننده، روشنگر و...</li>
+                        <li><b>نقش‌های مشکل‌آفرین:</b> شامل مهاجم، مانع، خوش‌گذران و...</li>
+                        <li><b>نقش بله قربان‌گو:</b> فردی که برای جلوگیری از مخالفت، سازگار به نظر می‌رسد.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">روش بارش مغزی (Brainstorming)</h3>
+                     <p class="mb-2">روشی برای افزایش خلاقیت در گروه‌هاست که بر چهار اصل استوار است:</p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li><b>اظهار نظر:</b> بیان آزادانه هر ایده‌ای.</li>
+                        <li><b>ارزیابی نکردن:</b> عدم قضاوت در مرحله تولید ایده.</li>
+                        <li><b>کمیت:</b> تمرکز بر تعداد بالای ایده‌ها.</li>
+                        <li><b>پرورش دادن:</b> اصلاح و گسترش ایده‌های یکدیگر.</li>
+                    </ol>
+                `
+            },
+            {
+                title: "تیم",
+                content: `
+                    <h3 class="text-xl font-bold text-red-700 mb-2">تیم‌سازی</h3>
+                    <p class="mb-4">به تلاش آگاهانه به منظور ایجاد گروه کاری اثربخش، تیم‌سازی گویند.</p>
+                     <h3 class="text-xl font-bold text-red-700 mb-2">تفاوت بین تیم و گروه</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>در تیم، تخصص‌های اعضا مکمل یکدیگر است، در حالی که در گروه لزوماً اینگونه نیست.</li>
+                        <li>تیم بر اساس طرحی خاص فعالیت می‌کند و پس از پایان ماموریت، منحل می‌شود.</li>
+                        <li>در تیم، اعضا با تبادل نظر بهترین راه‌حل را انتخاب می‌کنند، اما در گروه به اعضا گفته می‌شود چه کاری انجام دهند.</li>
+                    </ul>
+                `
+            },
+             {
+                title: "بحران",
+                content: `
+                    <h3 class="text-xl font-bold text-red-700 mb-2">تعریف بحران</h3>
+                    <p class="mb-4">بحران به موقعیتی اطلاق می‌شود که فرد با یک وضعیت اضطراری و پراسترس مواجه شده، خود را تحت فشار احساس می‌کند و نمی‌داند چگونه باید با آن شرایط کنار بیاید.</p>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">انواع بحران</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><b>بحران رشد:</b> بحران‌هایی که در طول زندگی و در مراحل رشد انسان رخ می‌دهند (مانند شروع مدرسه).</li>
+                        <li><b>بحران‌های زندگی:</b> بحران‌هایی که به زندگی خود فرد مربوط می‌شوند (مانند طلاق).</li>
+                        <li><b>بحران‌های آسیب‌زا:</b> بحران‌هایی که در اثر سوانح ناگوار به وجود می‌آیند (مانند زلزله).</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">ویژگی حادثه، سانحه و فاجعه</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                         <li><b>حادثه:</b> در محدوده جغرافیایی کوچک با قربانیان محدود رخ می‌دهد.</li>
+                         <li><b>سانحه:</b> وسیع‌تر از حادثه با افراد درگیر بیشتر.</li>
+                         <li><b>فاجعه (بلا):</b> دارای دامنه جغرافیایی بسیار بزرگ که ساختار اجتماعی را مختل می‌کند و به کمک‌های ملی یا بین‌المللی نیاز دارد.</li>
+                    </ul>
+                    <h3 class="text-xl font-bold text-red-700 mb-2">اصول چهارگانه بقا</h3>
+                    <p class="mb-2">برای غلبه بر بحران، چهار اصل وجود دارد:</p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li><b>پذیرش وقوع سانحه:</b> روبرو شدن با واقعیت.</li>
+                        <li><b>پذیرش احساسات و واکنش‌های خود:</b> طبیعی دانستن واکنش‌ها.</li>
+                        <li><b>درس گرفتن از آنچه رخ داده است:</b> استفاده از تجربیات برای آینده.</li>
+                        <li><b>متمرکز کردن احساسات خود بر موضوع جدید:</b> صرف انرژی برای اهداف جدید.</li>
+                    </ol>
+                `
             }
-            populateVoiceList();
-            if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = populateVoiceList;
+        ];
+
+        // --- DOM Elements ---
+        const accordionContainer = document.getElementById('accordion-container');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('no-results');
+
+        // --- Functions ---
+        /**
+         * Renders the accordion cards based on the provided data.
+         * @param {Array} data - The array of handout sections.
+         */
+        function renderAccordion(data) {
+            accordionContainer.innerHTML = '';
+            if (data.length === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
             }
+            data.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'accordion-item bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 backdrop-blur-sm bg-opacity-90';
+                itemDiv.dataset.title = item.title;
+                itemDiv.dataset.content = item.content;
 
-            const chaptersData = [
-                {
-                    id: 1, title: "نهضت بین المللی صلیب سرخ و هلال احمر",
-                    summary: "<ul><li><span>نهضت بین المللی</span><ul><li><span>تاریخچه (نبرد سولفورینو)</span></li><li><span>علائم و اصول هفتگانه</span></li><li><span>اعضاء (ICRC, IFRC, جمعیت‌های ملی)</span></li><li><span>جمعیت هلال احمر ایران</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول: آشنایی با نهضت بین المللی صلیب سرخ</h3>
-                        <p>در سال ۱۸۵۹، <span class="highlight">هانری دونان</span>، تاجر سوئیسی، پس از مشاهده رنج هزاران سرباز زخمی در جنگ سولفورینو، یک گروه امدادی داوطلبانه برای رسیدگی به مجروحان جنگی، صرف نظر از ملیتشان، تشکیل داد. او تجربیات خود را در کتاب <span class="highlight">"خاطرات سولفورینو"</span> منتشر کرد و دو پیشنهاد اساسی را مطرح نمود: ۱) تأسیس یک جمعیت امدادی داوطلب در هر کشور که در زمان صلح برای خدمت در زمان جنگ آموزش ببینند. ۲) ایجاد یک اصل بین‌المللی برای حمایت از بیمارستان‌ها و کارکنان مراکز درمانی. این ایده‌ها منجر به تشکیل اولین کنفرانس بین‌المللی در ژنو در سال ۱۸۶۳ و بنیان‌گذاری نهضت بین‌المللی صلیب سرخ شد.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش دوم: اصول اساسی و علائم</h3>
-                        <p>نهضت بر پایه <span class="highlight">هفت اصل</span> استوار است که راهنمای تمام فعالیت‌های آن است: <br><strong>۱. انسانیت:</strong> هدف نهضت، التیام آلام و کاهش رنج، محافظت از جان و سلامتی نوع بشر و تضمین کرامت انسان‌هاست.<br><strong>۲. بی‌غرضی:</strong> نهضت فاقد هرگونه جبهه‌گیری ملی، نژادی، عقیدتی، مذهبی، طبقاتی و سیاسی است و تنها بر اساس نیاز افراد به آن‌ها کمک می‌کند.<br><strong>۳. بی‌طرفی:</strong> نهضت در درگیری‌ها از هیچ طرفی جانبداری نمی‌کند تا بتواند اعتماد همگان را حفظ کند.<br><strong>۴. عدم وابستگی:</strong> نهضت مستقل است. جمعیت‌های ملی ضمن اینکه به دولت‌های خود کمک می‌کنند و از قوانین کشور پیروی می‌نمایند، همواره استقلال خود را حفظ می‌کنند.<br><strong>۵. خدمات داوطلبانه:</strong> عضویت در نهضت داوطلبانه است و هیچ‌گونه سودآوری، مشوق آن نمی‌باشد.<br><strong>۶. یگانگی:</strong> در هر کشور تنها یک جمعیت هلال احمر یا صلیب سرخ می‌تواند وجود داشته باشد.<br><strong>۷. جهان‌شمولی:</strong> موقعیت، مسئولیت‌ها و وظایف همه جمعیت‌ها در نهضت یکسان است و به یکدیگر یاری می‌رسانند.</p>
-                        <p>علائم اصلی نهضت شامل <span class="highlight">صلیب سرخ</span> (به احترام سوئیس)، <span class="highlight">هلال احمر</span> (پیشنهاد امپراطوری عثمانی) و <span class="highlight">شیر و خورشید سرخ</span> (آرم سابق ایران) است که همگی تحت حمایت کنوانسیون‌های ژنو قرار دارند و به عنوان نشان حمایتی برای محافظت از مراکز و کارکنان درمانی در زمان جنگ به کار می‌روند.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش سوم و چهارم: اعضای نهضت و جمعیت هلال احمر ایران</h3>
-                        <p>نهضت از سه بخش اصلی تشکیل شده است: <br><ul><li><span class="highlight">کمیته بین‌المللی صلیب سرخ (ICRC):</span> به عنوان نهادی بی‌طرف و مستقل در درگیری‌های مسلحانه فعالیت کرده و وظیفه حفظ و نشر اصول نهضت و حقوق بشردوستانه را بر عهده دارد.</li><li><span class="highlight">فدراسیون بین‌المللی جمعیت‌های صلیب سرخ و هلال احمر (IFRC):</span> هماهنگ‌کننده فعالیت‌ها در زمان صلح و حوادث طبیعی است و به جمعیت‌های ملی در جهت آمادگی در برابر سوانح کمک می‌کند.</li><li><span class="highlight">جمعیت‌های ملی:</span> بازوهای اجرایی نهضت در کشورهای خود هستند و خدمات امدادی و بشردوستانه ارائه می‌دهند.</li></ul></p>
-                        <p>جمعیت هلال احمر ایران در سال ۱۳۰۲ تأسیس شد. وظایف آن شامل ارائه خدمات امدادی در حوادث، آموزش عمومی، ارسال کمک به سایر کشورها، توانبخشی و توسعه مشارکت جوانان است. این جمعیت شامل سازمان‌های متعددی چون سازمان امداد و نجات، سازمان جوانان، سازمان داوطلبان و معاونت درمان و توانبخشی است.</p>
-                    `
-                },
-                {
-                    id: 2, title: "کار گروهی",
-                    summary: "<ul><li><span>کار گروهی</span><ul><li><span>تعریف و انواع گروه</span></li><li><span>فرآیند تشکیل گروه (تیکمن)</span></li><li><span>تیم و تفاوت آن با گروه</span></li><li><span>تکنیک‌های تصمیم‌گیری</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول: آشنایی با مفاهیم کار گروهی</h3>
-                        <p><span class="highlight">گروه</span> به دو یا چند نفر اطلاق می‌شود که با هم روابط متقابل دارند و برای تأمین هدف‌های خاص گردهم می‌آیند. گروه‌ها انواع مختلفی دارند: <strong>اولیه</strong> (روابط صمیمی مانند خانواده)، <strong>ثانویه</strong> (موقتی و قراردادی مانند کلاس درس)، <strong>رسمی</strong> (دارای ساختار مشخص) و <strong>غیررسمی</strong> (مبتنی بر صمیمیت).</p>
-                        <p>فرآیند شکل‌گیری یک گروه معمولاً شامل چهار مرحله (مدل تاکمن) است: <br>۱. <span class="highlight">مرحله گردهمایی (Forming):</span> اعضا با احتیاط با یکدیگر آشنا می‌شوند و به دنبال یافتن جایگاه خود هستند.<br>۲. <span class="highlight">مرحله طوفانی (Storming):</span> با بروز اختلاف نظرها و تضادها، این مرحله شکل می‌گیرد. رقابت برای کسب قدرت و نفوذ در این مرحله طبیعی است.<br>۳. <span class="highlight">مرحله هنجارگذاری (Norming):</span> گروه به انسجام می‌رسد، اعضا به یکدیگر اعتماد می‌کنند و استانداردها و قوانین نانوشته شکل می‌گیرد.<br>۴. <span class="highlight">مرحله انجام کار (Performing):</span> گروه کاملاً کارآمد شده و انرژی خود را بر روی انجام وظایف و دستیابی به اهداف متمرکز می‌کند.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش دوم: مفاهیم تیم</h3>
-                        <p><span class="highlight">تیم</span>، نوعی گروه کاری است که اعضای آن مهارت‌های مکمل یکدیگر را دارند و برای دستیابی به یک هدف مشترک، به شدت به هم وابسته‌اند و خود را در قبال نتایج، پاسخگوی یکدیگر می‌دانند. تفاوت اصلی تیم با گروه در وجود <span class="highlight">هم‌افزایی (Synergy) مثبت</span> است، به طوری که برآیند کار تیمی از مجموع تلاش‌های فردی اعضا بیشتر است. مزایای تیم‌های کاری شامل افزایش مهارت‌ها، انعطاف‌پذیری و افزایش تعهد اعضا است.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش سوم: تکنیک‌های تصمیم‌گیری گروهی</h3>
-                        <p>دو تکنیک رایج تصمیم‌گیری گروهی عبارتند از: <br><strong>۱) فن بارش مغزی (Brainstorming):</strong> در این روش، اعضا تشویق می‌شوند هر ایده‌ای را، هرچقدر هم عجیب، بدون قضاوت و ارزیابی بیان کنند. تمرکز بر کمیت ایده‌هاست نه کیفیت آن‌ها. این کار به افزایش خلاقیت و یافتن راه‌حل‌های نوآورانه کمک می‌کند.<br><strong>۲) فن گروه اسمی:</strong> این تکنیک مشارکت همگان را تضمین می‌کند. اعضا ابتدا به صورت فردی و در سکوت ایده‌های خود را می‌نویسند، سپس به نوبت آن‌ها را روی تخته‌ای ثبت می‌کنند. پس از بحث و شفاف‌سازی، از طریق رأی‌گیری بهترین گزینه انتخاب می‌شود.</p>
-                    `
-                },
-                 {
-                    id: 3, title: "خدمات داوطلبانه",
-                    summary: "<ul><li><span>خدمات داوطلبانه</span><ul><li><span>تعاریف (داوطلب، عضو، حامی)</span></li><li><span>گروه‌های چهارگانه داوطلبی</span></li><li><span>ویژگی‌های داوطلب و اصول خدمت</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول: مفاهیم و کلیات</h3>
-                        <p><span class="highlight">داوطلب</span> شخصی است که با پایبندی به اصول بنیادین نهضت، به صورت ارادی، آگاهانه و سازمان‌یافته، وقت و توانایی خود را بدون چشم‌داشت مالی برای کمک به دیگران صرف می‌کند. داوطلبان بر اساس نوع فعالیت در <span class="highlight">گروه‌های چهارگانه</span> سازماندهی می‌شوند: <br><strong>۱) گروه مهارت:</strong> داوطلبانی که خدمات فنی و تخصصی ویژه ارائه می‌دهند (مانند پزشکان، مهندسان).<br><strong>۲) گروه حمایت:</strong> داوطلبانی که خدمات مالی و مادی ارائه می‌دهند (مانند خیرین).<br><strong>۳) گروه هدایت:</strong> داوطلبانی که خدمات فکری، برنامه‌ریزی و مشورتی ارائه می‌نمایند (مانند اساتید دانشگاه، مدیران).<br><strong>۴) گروه مشارکت:</strong> داوطلبانی که با حضور فیزیکی خود در فعالیت‌های جمعیت مشارکت می‌نمایند (عمومی‌ترین گروه).<br>یک داوطلب موفق باید دارای صفاتی چون احساس مسئولیت، فداکاری، تواضع، خوش‌خلقی، پشتکار و انگیزه خیرخواهانه باشد.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش دوم: اهداف و ویژگی‌های خدمات داوطلبانه</h3>
-                        <p>خدمت داوطلبانه بر اساس اصل پنجم نهضت، فعالیتی است که فرد آن را با <span class="highlight">میل و اختیار</span>، بدون چشم‌داشت مالی و با هدف کمک به افراد آسیب‌پذیر انجام می‌دهد. این خدمات دارای ویژگی‌های زیر هستند: <br><ul><li><strong>افتخاری است:</strong> برای آن وجهی دریافت نمی‌شود، هرچند بازپرداخت هزینه‌های متعارف مجاز است.</li><li><strong>بشردوستانه و عام‌المنفعه است:</strong> بدون تبعیض و با هدف کاهش آلام بشری انجام می‌شود.</li><li><strong>اختیاری است:</strong> بدون هیچ‌گونه تحمیل یا فشار اجتماعی، سیاسی یا اقتصادی صورت می‌پذیرد.</li><li><strong>در اوقات فراغت انجام می‌شود:</strong> به صورت غیررسمی و بر اساس زمان آزاد داوطلب.</li></ul><p>اهداف اصلی خدمات داوطلبانه، فراهم کردن فرصت مشارکت برای داوطلبان و افزایش توانمندی‌های اجتماعی آنان است تا همبستگی جهانی انسان‌ها تجلی یابد.</p>
-                    `
-                },
-                {
-                    id: 4, title: "حقوق بشردوستانه بین‌المللی",
-                    summary: "<ul><li><span>حقوق بشردوستانه (IHL)</span><ul><li><span>تعریف و رژیم حمایتی</span></li><li><span>تفاوت با حقوق بشر</span></li><li><span>مفاهیم کلیدی و حمایت‌ها</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول و دوم: تعریف و مفهوم رژیم حمایتی</h3>
-                        <p><span class="highlight">حقوق بین‌الملل بشردوستانه (IHL)</span>، که به آن حقوق جنگ نیز گفته می‌شود، مجموعه‌ای از قوانین است که در زمان درگیری‌های مسلحانه به اجرا درمی‌آید. این حقوق دو هدف اصلی دارد: ۱) محدود کردن حق دولت‌ها در انتخاب روش‌ها و سلاح‌های جنگی برای جلوگیری از رنج غیرضروری. ۲) حمایت از حیات، سلامت و کرامت انسان‌هایی که در جنگ مشارکت ندارند (غیرنظامیان) یا دیگر مشارکت نمی‌کنند (اسیران جنگی، مجروحان).</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش سوم تا یازدهم: مفاهیم کلیدی و حمایت‌ها</h3>
-                        <p>حقوق بشردوستانه با <span class="highlight">حقوق بشر</span> متفاوت است؛ حقوق بشر در همه حال (جنگ و صلح) قابل اجراست، در حالی که حقوق بشردوستانه مختص زمان جنگ است. در IHL، تمایز میان <span class="highlight">رزمنده</span> (عضو نیروهای مسلح) و <span class="highlight">غیرنظامی</span> بسیار حیاتی است. حمله مستقیم تنها علیه رزمندگان و اهداف نظامی مجاز است. یک هدف نظامی باید دو ویژگی داشته باشد: تأثیر مؤثر در عملیات نظامی و مزیت نظامی قطعی در صورت نابودی. حمله به اهداف غیرنظامی، اماکن فرهنگی و مذهبی، منابع آب و غذا، سدها و نیروگاه‌های هسته‌ای اکیداً ممنوع است. همچنین استفاده از سلاح‌هایی که باعث درد و رنج زائد می‌شوند (مانند سلاح‌های شیمیایی و بیولوژیک) غیرقانونی است. مجریان اصلی این حقوق دولت‌ها هستند، اما نهادهایی چون کمیته بین‌المللی صلیب سرخ و سازمان‌های غیردولتی نیز بر اجرای آن نظارت دارند.</p>
-                    `
-                },
-                {
-                    id: 5, title: "رهبری و راهنمایی گروه",
-                    summary: "<ul><li><span>رهبری و راهنمایی گروه</span><ul><li><span>مهارت‌ها و توانمندی‌های رهبر</span></li><li><span>ایجاد انگیزه در داوطلبان</span></li><li><span>تصمیم‌گیری و هماهنگی</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول و دوم: مهارت‌ها و چگونگی رهبری</h3>
-                        <p>یک رهبر موفق باید دارای مهارت‌های فنی و ارتباطی باشد. مهارت‌های کلیدی شامل <span class="highlight">فکر باز، گوش دادن فعال، دوراندیشی، سازماندهی، و توانایی بحث و انتقادپذیری</span> است. رهبر با ایجاد شور و نشاط و اطلاع‌رسانی شفاف در مورد اهداف، به گروه انگیزه می‌دهد. برای ایجاد انگیزه باید ظاهری پرانرژی داشت، با اعضا به گرمی برخورد کرد، به نظراتشان با دقت گوش داد و خلاقیت را در آن‌ها تقویت نمود. توانمندی‌های یک رهبر جوان شامل مهارت‌های فنی (اطلاعات کافی از نهضت)، ارتباطی (ایجاد حس همدلی)، آموزشی (انتقال اطلاعات) و انتقال اطلاعات (صحبت در جمع) است.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش سوم: چگونه تصمیم‌گیری کنیم؟</h3>
-                        <p>استفاده از <span class="highlight">هرم تصمیم‌گیری</span> به اجرای بهتر پروژه‌ها کمک می‌کند. این هرم شامل مراحل زیر است: <br>۱. <strong>مشخص کردن هدف نهایی:</strong> بر اساس نیازهای موجود (مثلاً اجرای پروژه سوادآموزی).<br>۲. <strong>مشخص کردن نقاط قوت و ضعف:</strong> (مثلاً قوت: ۵ داوطلب باانگیزه؛ ضعف: کمبود فضا).<br>۳. <strong>تهیه فهرست کارها:</strong> (مثلاً آموزش داوطلبان بی‌تجربه، پیدا کردن فضا).<br>۴. <strong>تعیین وظایف افراد:</strong> تعریف مسئولیت‌های هر شخص.<br>۵. <strong>تعیین جدول زمانی:</strong> برنامه‌ریزی هفتگی و سالیانه.<br>۶. <strong>پیش‌بینی و رفع موانع احتمالی:</strong> (مثلاً کافی نبودن اتاق‌ها).</p>
-                    `
-                },
-                {
-                    id: 6, title: "شناخت حوادث",
-                    summary: "<ul><li><span>شناخت حوادث</span><ul><li><span>حوادث طبیعی (زلزله، سیل، آتش‌سوزی)</span></li><li><span>حوادث انسان‌ساخت</span></li><li><span>اقدامات حیاتی (قبل، حین و بعد)</span></li></ul></li></ul>",
-                    fulltext: `
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول: زلزله</h3>
-                        <p><span class="highlight">اقدامات قبل از وقوع:</span> شناسایی مکان‌های امن، محکم کردن اشیای سنگین به دیوار، تهیه کیف نجات حاوی آب، غذا، دارو و وسایل ضروری. آموزش خانواده برای قطع جریان برق، آب و گاز. <br><span class="highlight">اقدامات حین وقوع:</span> پناه‌گیری در مکان‌های امن (مانند زیر میز محکم یا کنار دیوارهای داخلی) و محافظت از سر و گردن. از آسانسور استفاده نکنید. اگر در فضای باز هستید از ساختمان‌ها و تیرهای برق دور شوید. اگر در خودرو هستید، آن را متوقف کرده و در داخل آن بمانید. <br><span class="highlight">اقدامات بعد از وقوع:</span> مراقبت از خود در برابر پس‌لرزه‌ها، بررسی جراحات احتمالی، قطع جریان برق و گاز در صورت احساس خطر نشت، و گوش دادن به رادیو برای دریافت اطلاعات.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش دوم: سیل</h3>
-                        <p><span class="highlight">اقدامات قبل از وقوع:</span> اطلاع از هشدارهای هواشناسی، تهیه وسایل ضروری (آب، غذا، چراغ قوه)، بیمه کردن منزل و انتقال اشیای قیمتی به طبقات بالاتر. <br><span class="highlight">اقدامات حین وقوع:</span> رفتن به مکان‌های مرتفع و امن. از عبور از میان آب‌های در حال حرکت، حتی با خودرو، اکیداً خودداری کنید (تنها ۱۵ سانتی‌متر آب در حال حرکت می‌تواند باعث واژگونی شما شود). جریان برق، آب و گاز را قطع کنید. <br><span class="highlight">اقدامات بعد از وقوع:</span> دوری از آب‌های راکد (که ممکن است به شدت آلوده باشند)، عدم استفاده از مواد غذایی که با آب سیل تماس داشته‌اند و اطمینان از سلامت آب آشامیدنی قبل از مصرف.</p>
-                        <h3 class="text-xl font-semibold mt-8 mb-4">بخش پانزدهم: مخاطرات ناشی از حوادث شیمیایی خانگی</h3>
-                        <p>بسیاری از مواد شیمیایی خانگی در صورت استفاده نادرست می‌توانند خطرناک باشند. هرگز مواد سفیدکننده را با سایر مواد شوینده (به‌ویژه ترکیبات حاوی آمونیاک) مخلوط نکنید، زیرا این کار منجر به تولید گاز کلر می‌شود که بسیار سمی و خطرناک است. هنگام استفاده از مواد شیمیایی، حتماً از تهویه مناسب (باز کردن پنجره‌ها) اطمینان حاصل کنید. در صورت ریختن مواد، سریعاً آن را با دستمال جاذب پاک کرده و محل را با آب بشویید و دستکش بپوشید.</p>
-                    `
-                },
-                {
-                    id: 7, title: "کمک‌های اولیه روانشناختی",
-                    summary: "<ul><li><span>کمک‌های اولیه روانشناختی</span><ul><li><span>تعریف بحران و انواع آن</span></li><li><span>واکنش‌های روانی (شوک، واکنش، سازش)</span></li><li><span>اصول چهارگانه بقا</span></li></ul></li></ul>",
-                    fulltext: `
-                         <h3 class="text-xl font-semibold mt-8 mb-4">بخش اول و دوم: تعریف بحران و واکنش‌های روانی</h3>
-                         <p>بحران یک موقعیت اضطراری است که سیستم مقابله روانی فرد را مختل می‌کند و فرد احساس می‌کند توانایی کنترل شرایط را ندارد. واکنش‌های روانی طبیعی به بحران، در چند فاز رخ می‌دهند: <br><strong>۱. فاز شوک:</strong> که با گیجی، ناباوری، کرختی هیجانی و گاهی انکار واقعیت همراه است. این فاز ممکن است از چند دقیقه تا ۲۴ ساعت طول بکشد.<br><strong>۲. فاز واکنش:</strong> که در آن احساساتی چون اضطراب، خشم، ترس، غم و گناه بروز می‌کنند. این مرحله، بخش دردناک اما ضروری فرآیند سوگواری است.<br><strong>۳. فاز سازش و بازیابی:</strong> که در آن فرد به تدریج با واقعیت کنار می‌آید، به دنبال راه‌حل می‌گردد و به زندگی عادی بازمی‌گردد.</p>
-                         <h3 class="text-xl font-semibold mt-8 mb-4">بخش چهارم: اصول چهارگانه بقا</h3>
-                         <p>برای کمک به خود و دیگران برای عبور از بحران، چهار اصل کلیدی وجود دارد (کمک‌های اولیه روانشناختی): <br><strong>۱. پذیرش وقوع سانحه:</strong> اولین قدم برای بهبودی، پذیرفتن واقعیت رویداد است. انکار، روند بهبودی را به تأخیر می‌اندازد. باید به فرد کمک کرد تا واقعیت را درک کند. <br><strong>۲. پذیرش احساسات:</strong> به خود و دیگران اجازه دهید احساساتشان را بروز دهند و در مورد آن‌ها صحبت کنند. گوش دادن فعال و بدون قضاوت به فرد آسیب‌دیده، مهم‌ترین کمک در این مرحله است. <br><strong>۳. درس گرفتن از واقعه:</strong> از تجربه کسب شده برای افزایش تاب‌آوری و آمادگی برای آینده استفاده کنید. مرور آنچه رخ داده به یافتن معنا و بازیابی کنترل کمک می‌کند. <br><strong>۴. تمرکز بر موضوع جدید:</strong> به تدریج به فعالیت‌های عادی، اهداف کوچک و ارتباطات اجتماعی روی بیاورید تا به آرامی به جریان زندگی بازگردید. حمایت از فرد برای برداشتن قدم‌های کوچک به سمت آینده، حیاتی است.</p>
-                    `
-                }
-            ];
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'accordion-header flex justify-between items-center p-6 cursor-pointer hover:bg-red-50';
+                headerDiv.setAttribute('aria-expanded', 'false');
+                headerDiv.setAttribute('aria-controls', `content-${index}`);
 
-             const quizData = [
-                { question: "بنیان‌گذار نهضت بین‌المللی صلیب سرخ چه کسی بود؟", options: ["لویی پاستور", "هانری دونان", "ماری کوری", "فلورانس نایتینگل"], answer: "هانری دونان" },
-                { question: "کدام یک از اصول هفتگانه نهضت به معنای عدم جانبداری در درگیری‌ها است؟", options: ["انسانیت", "بی‌غرضی", "بی‌طرفی", "یگانگی"], answer: "بی‌طرفی" },
-                { question: "در فرآیند تشکیل گروه، مرحله بروز اختلاف نظرها چه نام دارد؟", options: ["گردهمایی", "طوفانی", "هنجارگذاری", "انجام کار"], answer: "طوفانی" },
-                { question: "کدام گروه داوطلبی خدمات مالی و مادی ارائه می‌دهد؟", options: ["مهارت", "حمایت", "هدایت", "مشارکت"], answer: "حمایت" },
-                { question: "حقوق بین‌الملل بشردوستانه (IHL) در چه زمانی اجرا می‌شود؟", options: ["فقط زمان صلح", "زمان جنگ و صلح", "فقط زمان درگیری‌های مسلحانه", "فقط برای غیرنظامیان"], answer: "فقط زمان درگیری‌های مسلحانه" },
-                { question: "در هنگام زلزله، کدام مکان برای پناه‌گیری امن‌تر است؟", options: ["کنار پنجره", "زیر میز محکم", "داخل آسانسور", "روی پشت بام"], answer: "زیر میز محکم" },
-                { question: "اولین فاز واکنش روانی به یک بحران چیست؟", options: ["واکنش", "انکار", "شوک", "سازش"], answer: "شوک" },
-                { question: "علامت هلال احمر توسط کدام کشور پیشنهاد شد؟", options: ["ایران", "مصر", "سوئیس", "امپراطوری عثمانی"], answer: "امپراطوری عثمانی" },
-                { question: "کدام تکنیک تصمیم‌گیری گروهی بر کمیت ایده‌ها و عدم قضاوت تاکید دارد؟", options: ["گروه اسمی", "بارش مغزی", "هرم تصمیم‌گیری", "مشورت فردی"], answer: "بارش مغزی" },
-                { question: "استفاده از غیرنظامیان به عنوان سپر انسانی طبق حقوق بشردوستانه چه حکمی دارد؟", options: ["مجاز است", "بستگی به شرایط دارد", "اکیداً ممنوع است", "قانونی مشخص ندارد"], answer: "اکیداً ممنوع است" },
-                { question: "بالاترین شورای تصمیم‌گیری نهضت بین‌المللی صلیب سرخ و هلال احمر کدام است؟", options: ["شورای نمایندگان", "کمیسیون دائمی", "کنفرانس بین‌المللی", "فدراسیون بین‌المللی"], answer: "کنفرانس بین‌المللی" },
-                { question: "کدام یک از مهارت‌های رهبر، به معنای احترام به نظرات مختلف و آماده شنیدن هرگونه پیشنهاد است؟", options: ["دوراندیشی", "سازماندهی", "داشتن فکر باز", "مهارت آموزشی"], answer: "داشتن فکر باز" },
-                { question: "در صورت وقوع سیل، اولین اقدام پس از شنیدن هشدار چیست؟", options: ["تماس با اورژانس", "رفتن به مکان‌های مرتفع", "بستن در و پنجره‌ها", "جمع‌آوری اشیای قیمتی"], answer: "رفتن به مکان‌های مرتفع" },
-                { question: "مخلوط کردن کدام ماده شیمیایی خانگی با سفیدکننده (وایتکس) گاز سمی تولید می‌کند؟", options: ["نمک", "سرکه", "آمونیاک (جوهر نمک)", "الکل"], answer: "آمونیاک (جوهر نمک)" },
-                { question: "در کمک‌های اولیه روانشناختی، گوش دادن فعال و بدون قضاوت به فرد آسیب‌دیده مربوط به کدام اصل بقا است؟", options: ["پذیرش وقوع سانحه", "پذیرش احساسات", "درس گرفتن از واقعه", "تمرکز بر موضوع جدید"], answer: "پذیرش احساسات" },
-                { question: "کدام سازمان وظیفه هماهنگی فعالیت جمعیت‌های ملی در زمان صلح و حوادث طبیعی را بر عهده دارد؟", options: ["کمیته بین‌المللی صلیب سرخ (ICRC)", "سازمان ملل متحد", "فدراسیون بین‌المللی (IFRC)", "سازمان بهداشت جهانی"], answer: "فدراسیون بین‌المللی (IFRC)" },
-                { question: "«هم‌افزایی» یا Synergy یکی از مزایای اصلی کدام است؟", options: ["کار فردی", "کار گروهی", "تیم کاری", "مشورت"], answer: "تیم کاری" },
-                { question: "حقوق بشردوستانه از کدام دسته افراد حمایت نمی‌کند؟", options: ["اسیران جنگی", "مجروحان", "غیرنظامیان", "رزمندگانی که فعالانه در جنگ مشارکت دارند"], answer: "رزمندگانی که فعالانه در جنگ مشارکت دارند" },
-                { "question": "در هنگام آتش‌سوزی، در صورت پر شدن فضا از دود، بهترین روش حرکت چیست؟", "options": ["دویدن سریع", "نگه داشتن نفس", "حرکت به صورت ایستاده", "حرکت به صورت سینه خیز یا چهار دست و پا"], "answer": "حرکت به صورت سینه خیز یا چهار دست و پا" },
-                { "question": "در مدل تاکمن برای تشکیل گروه، مرحله اعتماد و انسجام چه نام دارد؟", "options": ["طوفانی (Storming)", "هنجارگذاری (Norming)", "پایان (Adjourning)", "گردهمایی (Forming)"], "answer": "هنجارگذاری (Norming)" }
-            ];
-
-            function renderContent() {
-                contentContainer.innerHTML = chaptersData.map(chapter => `
-                    <section id="chapter-${chapter.id}" class="content-section bg-white p-4 sm:p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-2xl opacity-0">
-                        <div class="flex justify-between items-center border-b border-gray-200 pb-3 mb-4">
-                            <h2 class="text-xl sm:text-2xl font-bold text-red-700">${chapter.title}</h2>
-                            <button class="tts-btn p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors" data-content-id="chapter${chapter.id}-fulltext">
-                                <svg class="play-icon h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" /></svg>
-                                <svg class="stop-icon h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zM7 8a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm1 5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" /></svg>
-                            </button>
-                        </div>
-                        <div class="summary-view">
-                            <h3 class="text-lg font-semibold mt-6 mb-3 text-gray-700">خلاصه نموداری فصل</h3>
-                            <div class="tree">${chapter.summary}</div>
-                        </div>
-                        <div id="chapter${chapter.id}-fulltext" class="fulltext-view hidden prose max-w-none prose-p:text-gray-600 prose-ul:list-disc prose-ul:pr-5">
-                            ${chapter.fulltext}
-                        </div>
-                    </section>
-                `).join('');
-            }
-
-            function renderQuiz() {
-                let quizHtml = `<div class="bg-white p-6 rounded-2xl shadow-lg opacity-0 fade-in-section"><h2 class="text-3xl font-bold text-red-700 text-center mb-8">آزمون آنلاین پایه داوطلبی</h2><form id="quiz-form" class="space-y-8">`;
-                quizData.forEach((q, index) => {
-                    quizHtml += `<div class="quiz-question border-b border-gray-200 pb-6"><p class="text-lg font-semibold mb-4">${index + 1}. ${q.question}</p><div class="space-y-3">`;
-                    q.options.forEach(option => {
-                        quizHtml += `<label class="quiz-option flex items-center p-3 border-2 border-gray-200 rounded-lg hover:border-red-400 cursor-pointer transition-colors duration-200"><input type="radio" name="question${index}" value="${option}" class="ml-3 form-radio h-5 w-5 text-red-600 focus:ring-red-500"><span>${option}</span></label>`;
-                    });
-                    quizHtml += `</div></div>`;
-                });
-                quizHtml += `<div class="text-center mt-10"><button type="submit" class="bg-red-600 text-white font-bold py-3 px-8 rounded-full hover:bg-red-700 transition-transform transform hover:scale-105 shadow-lg">بررسی پاسخ‌ها</button></div></form><div id="quiz-results" class="text-center mt-8 hidden"></div></div>`;
-                quizContainer.innerHTML = quizHtml;
-                document.getElementById('quiz-form').addEventListener('submit', (e) => { e.preventDefault(); checkQuiz(); });
-            }
-
-            function switchView(view) {
-                currentView = view;
-                window.speechSynthesis.cancel();
-                [summaryBtn, fulltextBtn, quizBtn].forEach(btn => btn.classList.remove('active'));
+                const titleH2 = document.createElement('h2');
+                titleH2.className = 'text-xl font-bold text-red-800';
+                titleH2.textContent = item.title;
                 
-                if (view === 'quiz') {
-                    contentContainer.classList.add('hidden');
-                    quizContainer.classList.remove('hidden');
-                    quizBtn.classList.add('active');
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'icon text-red-700';
+                iconSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>`;
+
+                headerDiv.appendChild(titleH2);
+                headerDiv.appendChild(iconSpan);
+
+                const contentDiv = document.createElement('div');
+                contentDiv.id = `content-${index}`;
+                contentDiv.className = 'accordion-content bg-white bg-opacity-80 text-gray-700 leading-relaxed';
+                contentDiv.innerHTML = item.content;
+                contentDiv.setAttribute('role', 'region');
+                
+                itemDiv.appendChild(headerDiv);
+                itemDiv.appendChild(contentDiv);
+                
+                accordionContainer.appendChild(itemDiv);
+
+                headerDiv.addEventListener('click', () => {
+                    itemDiv.classList.toggle('active');
+                    const isExpanded = itemDiv.classList.contains('active');
+                    headerDiv.setAttribute('aria-expanded', isExpanded);
+                });
+            });
+        }
+        
+        /**
+         * Filters accordion items and highlights search term.
+         */
+        function handleSearch() {
+            const searchTerm = searchInput.value.trim();
+            const items = document.querySelectorAll('.accordion-item');
+            let foundItems = 0;
+
+            if (!searchTerm) {
+                items.forEach(item => {
+                    const titleElement = item.querySelector('h2');
+                    const contentElement = item.querySelector('.accordion-content');
+                    titleElement.innerHTML = item.dataset.title;
+                    contentElement.innerHTML = item.dataset.content;
+                    item.style.display = 'block';
+                });
+                noResults.style.display = 'none';
+                return;
+            }
+
+            const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+
+            items.forEach(item => {
+                const originalTitle = item.dataset.title;
+                const originalContent = item.dataset.content;
+                const titleElement = item.querySelector('h2');
+                const contentElement = item.querySelector('.accordion-content');
+                
+                const combinedText = (originalTitle + ' ' + originalContent.replace(/<[^>]+>/g, ' ')).toLowerCase();
+
+                if (combinedText.includes(searchTerm.toLowerCase())) {
+                    item.style.display = 'block';
+                    foundItems++;
+
+                    const highlightedTitle = originalTitle.replace(regex, '<span class="highlight">$1</span>');
+                    const highlightedContent = originalContent.replace(regex, '<span class="highlight">$1</span>');
+
+                    titleElement.innerHTML = highlightedTitle;
+                    contentElement.innerHTML = highlightedContent;
                 } else {
-                    contentContainer.classList.remove('hidden');
-                    quizContainer.classList.add('hidden');
-                    const isSummary = view === 'summary';
-                    isSummary ? summaryBtn.classList.add('active') : fulltextBtn.classList.add('active');
-                    document.querySelectorAll('.summary-view').forEach(el => el.classList.toggle('hidden', !isSummary));
-                    document.querySelectorAll('.fulltext-view').forEach(el => el.classList.toggle('hidden', isSummary));
+                    item.style.display = 'none';
                 }
-                searchInput.value = '';
-                performSearch();
-            }
-
-            function checkQuiz() {
-                let score = 0;
-                const form = document.getElementById('quiz-form');
-                quizData.forEach((q, index) => {
-                    const selectedOption = form.querySelector(`input[name="question${index}"]:checked`);
-                    form.querySelectorAll(`input[name="question${index}"]`).forEach(radio => {
-                        const parentLabel = radio.closest('.quiz-option');
-                        parentLabel.classList.remove('correct', 'incorrect');
-                        if (radio.value === q.answer) parentLabel.classList.add('correct');
-                    });
-                    if (selectedOption) {
-                        if (selectedOption.value === q.answer) score++;
-                        else selectedOption.closest('.quiz-option').classList.add('incorrect');
-                    }
-                });
-                const resultsDiv = document.getElementById('quiz-results');
-                resultsDiv.innerHTML = `<div class="p-4 bg-red-50 rounded-lg"><p class="text-2xl font-bold">امتیاز شما: <span class="text-red-600">${score}</span> از <span class="text-red-600">${quizData.length}</span></p></div>`;
-                resultsDiv.classList.remove('hidden');
-                resultsDiv.scrollIntoView({ behavior: 'smooth' });
-            }
+            });
             
-            function resetAllTtsButtons() {
-                document.querySelectorAll('.tts-btn').forEach(btn => btn.classList.remove('playing'));
-            }
-            function handleTts(e) {
-                const button = e.currentTarget;
-                const contentId = button.dataset.contentId;
-                const contentElement = document.getElementById(contentId);
-                if (!contentElement || !('speechSynthesis' in window)) return alert('مرورگر شما از قابلیت خواندن متن پشتیبانی نمی‌کند.');
-                if (button.classList.contains('playing')) return window.speechSynthesis.cancel();
-                
-                window.speechSynthesis.cancel();
-                resetAllTtsButtons();
-                const textToRead = contentElement.innerText;
-                const utterance = new SpeechSynthesisUtterance(textToRead);
-                const persianVoice = voices.find(voice => voice.lang === 'fa-IR');
-                if (persianVoice) utterance.voice = persianVoice;
-                else utterance.lang = 'fa-IR';
-                utterance.rate = 0.9;
-                utterance.onstart = () => button.classList.add('playing');
-                utterance.onend = () => button.classList.remove('playing');
-                utterance.onerror = () => { alert('خطایی در پخش صدا رخ داد.'); button.classList.remove('playing'); };
-                window.speechSynthesis.speak(utterance);
-            }
+            noResults.style.display = foundItems === 0 ? 'block' : 'none';
+        }
 
-            function removeHighlights() {
-                document.querySelectorAll('mark.search-highlight').forEach(el => {
-                    const parent = el.parentNode;
-                    if (parent) {
-                        parent.replaceChild(document.createTextNode(el.textContent), el);
-                        parent.normalize();
-                    }
-                });
-            }
-            function highlightText(node, searchTerm) {
-                if (!searchTerm || !node) return false;
-                const regex = new RegExp(searchTerm.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
-                let matchFound = false;
-                if (node.nodeType === 3) {
-                    if (regex.test(node.data)) {
-                        const span = document.createElement('span');
-                        span.innerHTML = node.data.replace(regex, (match) => `<mark class="search-highlight">${match}</mark>`);
-                        node.parentNode.replaceChild(span, node);
-                        while(span.firstChild) span.parentNode.insertBefore(span.firstChild, span);
-                        if(span.parentNode) span.parentNode.removeChild(span);
-                        return true;
-                    }
-                } else if (node.nodeType === 1 && !/^(script|style|mark)$/i.test(node.nodeName)) {
-                    Array.from(node.childNodes).forEach(child => {
-                        if (highlightText(child, searchTerm)) matchFound = true;
-                    });
-                }
-                return matchFound;
-            }
-            function performSearch() {
-                removeHighlights();
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm === "") {
-                    document.querySelectorAll('.content-section').forEach(s => s.style.display = 'block');
-                    noResultsMessage.classList.add('hidden');
-                    return;
-                }
-                let resultsFound = false;
-                document.querySelectorAll('.content-section').forEach(section => {
-                    const viewToSearch = currentView === 'summary' ? section.querySelector('.summary-view') : section.querySelector('.fulltext-view');
-                    if (highlightText(viewToSearch, searchTerm)) {
-                        section.style.display = 'block';
-                        resultsFound = true;
-                    } else {
-                        section.style.display = 'none';
-                    }
-                });
-                noResultsMessage.classList.toggle('hidden', resultsFound);
-            }
-            
-            function setupEventListeners() {
-                summaryBtn.addEventListener('click', () => switchView('summary'));
-                fulltextBtn.addEventListener('click', () => switchView('fulltext'));
-                quizBtn.addEventListener('click', () => switchView('quiz'));
-                searchInput.addEventListener('keyup', (e) => {
-                    if (e.key === 'Enter') performSearch();
-                    else if (searchInput.value.trim() === '') performSearch();
-                });
-                document.querySelectorAll('.tts-btn').forEach(button => button.addEventListener('click', handleTts));
-                window.addEventListener('scroll', () => {
-                    backToTopBtn.classList.toggle('opacity-0', window.pageYOffset < 300);
-                    backToTopBtn.classList.toggle('invisible', window.pageYOffset < 300);
-                    mainHeader.classList.toggle('shadow-xl', window.pageYOffset > 50);
-                });
-                backToTopBtn.addEventListener('click', () => window.scrollTo(0, 0));
-            }
+        // --- Event Listeners ---
+        searchInput.addEventListener('input', handleSearch);
 
-            function animateOnScroll() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('fade-in-section');
-                        }
-                    });
-                }, { threshold: 0.1 });
-
-                document.querySelectorAll('.content-section, #quiz-container > div').forEach(section => {
-                    observer.observe(section);
-                });
-            }
-
-            renderContent();
-            renderQuiz();
-            setupEventListeners();
-            switchView('summary');
-            animateOnScroll();
+        // --- Initial Render ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAccordion(handoutData);
         });
     </script>
 </body>
